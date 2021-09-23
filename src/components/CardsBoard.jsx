@@ -3,7 +3,7 @@ import Card from "./Card";
 
 export default class CardsBoard extends React.Component {
   renderCardsBoard(items) {
-    return items.map((item, index) => <Card value={item} key={index}/>);
+    return items.map((item, index) => <Card data={item} key={index} />);
   }
 
   render() {
