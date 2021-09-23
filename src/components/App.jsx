@@ -19,7 +19,7 @@ export default class App extends React.Component {
     return (
         <div className="app w-75 mx-auto">
           <ControlPanel />
-          <CardsBoard />
+          <CardsBoard icons={this.state.icons} />
         </div>
     );
   }
