@@ -1,8 +1,13 @@
 import React from "react";
 
 export default class Card extends React.Component {
+  handleCardClick = (e) => {
+    this.props.cardClickHandler(e.target.id);
+  };
+
   render() {
-    const { id, value, status } = this.props.data;
+    const { id, data } = this.props;
+    const { value, status } = data;
     let card;
 
     switch (status) {
@@ -10,7 +15,7 @@ export default class Card extends React.Component {
         card = (
             <div className="col-2 mb-4">
               <div className="card bg-warning">
-                <div id={id} className="card-body" onClick={this.handleClick}></div>
+                <div id={id} className="card-body" onClick={this.handleCardClick}></div>
               </div>
             </div>
         );

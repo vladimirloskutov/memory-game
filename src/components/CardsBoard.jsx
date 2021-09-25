@@ -25,8 +25,23 @@ export default class CardsBoard extends React.Component {
     };
   }
 
+  handleCardClick = (cardId) => {
+    if (this.state.comparisonIcons.length > 1) {
+      return;
+    }
+
+    const newShuffledIcons = this.state.shuffledIcons;
+    newShuffledIcons[cardId].status = 'opened';
+
+    const newComparisonIcons = this.state.comparisonIcons;
+    newComparisonIcons.push(cardId);
+
+
+    this.setState({ shuffledIcons: newShuffledIcons, comparisonIcons: newComparisonIcons });
+  };
+
   renderCardsBoard(items) {
-    return items.map((item, index) => <Card data={item} key={index} />);
+    return items.map((item, index) => <Card key={index} id={index} data={item} cardClickHandler={this.handleCardClick} />);
   }
 
   render() {
