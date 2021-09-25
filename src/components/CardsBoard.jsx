@@ -20,6 +20,8 @@ export default class CardsBoard extends React.Component {
     super(props);
     this.state = {
       shuffledIcons: props.icons.sort(() => Math.random() - 0.5),
+      remainingCards: props.icons.length,
+      comparisonIcons: [],
     };
   }
 
