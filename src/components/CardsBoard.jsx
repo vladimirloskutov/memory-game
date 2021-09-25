@@ -31,6 +31,17 @@ export default class CardsBoard extends React.Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { shuffledIcons, remainingCards, comparisonIcons } = this.state;
 
+    if (remainingCards === 0) {
+      alert('Game Over!');
+
+      const shuffledIcons = JSON.parse(JSON.stringify(CardsBoard.defaultProps));
+      this.setState({
+        shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
+        remainingCards: shuffledIcons.icons.length,
+        comparisonIcons: [],
+      });
+    }
+
     if (comparisonIcons.length === 1) {
       this.timerID = setTimeout(() => {
         const [cardId] = comparisonIcons;
