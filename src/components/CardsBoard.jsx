@@ -32,13 +32,10 @@ export default class CardsBoard extends React.Component {
       return;
     }
 
-    const newShuffledIcons = shuffledIcons;
-    newShuffledIcons[cardId].status = 'opened';
+    shuffledIcons[cardId].status = 'opened';
+    comparisonIcons.push(cardId);
 
-    const newComparisonIcons = comparisonIcons;
-    newComparisonIcons.push(cardId);
-
-    this.setState({ shuffledIcons: newShuffledIcons, comparisonIcons: newComparisonIcons });
+    this.setState({ shuffledIcons, comparisonIcons });
   };
 
   renderCardsBoard(items) {
