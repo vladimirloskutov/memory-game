@@ -18,9 +18,12 @@ export default class CardsBoard extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const shuffledIcons = JSON.parse(JSON.stringify(props));
+
     this.state = {
-      shuffledIcons: props.icons.sort(() => Math.random() - 0.5),
-      remainingCards: props.icons.length,
+      shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
+      remainingCards: shuffledIcons.icons.length,
       comparisonIcons: [],
     };
   }
@@ -33,10 +36,10 @@ export default class CardsBoard extends React.Component {
         const [cardId] = comparisonIcons;
         shuffledIcons[cardId].status = 'closed';
         this.setState({ shuffledIcons, comparisonIcons: [] });
-      }, 1000);
+      }, 2000);
     }
 
-    if (this.state.comparisonIcons.length === 2) {
+    if (comparisonIcons.length === 2) {
       clearTimeout(this.timerID);
 
       const [firstCardId, secondCardId] = comparisonIcons;
@@ -49,13 +52,13 @@ export default class CardsBoard extends React.Component {
           shuffledIcons[secondCardId].status = 'deleted';
           const newRemainingCards = remainingCards - 2;
 
-          this.setState({ remainingCards: newRemainingCards });
+          this.setState({ shuffledIcons, comparisonIcons: [], remainingCards: newRemainingCards });
         } else {
           shuffledIcons[firstCardId].status = 'closed';
           shuffledIcons[secondCardId].status = 'closed';
-        }
 
-        this.setState({ shuffledIcons, comparisonIcons: [] });
+          this.setState({ shuffledIcons, comparisonIcons: [] });
+        }
       }, 1000);
     }
   }
