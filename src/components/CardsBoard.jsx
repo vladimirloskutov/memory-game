@@ -25,6 +25,41 @@ export default class CardsBoard extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { shuffledIcons, remainingCards, comparisonIcons } = this.state;
+
+    if (comparisonIcons.length === 1) {
+      this.timerID = setTimeout(() => {
+        const [cardId] = comparisonIcons;
+        shuffledIcons[cardId].status = 'closed';
+        this.setState({ shuffledIcons, comparisonIcons: [] });
+      }, 1000);
+    }
+
+    if (this.state.comparisonIcons.length === 2) {
+      clearTimeout(this.timerID);
+
+      const [firstCardId, secondCardId] = comparisonIcons;
+      const firstCardValue = shuffledIcons[firstCardId].value;
+      const secondCardValue = shuffledIcons[secondCardId].value;
+
+      this.timerID1 = setTimeout(() => {
+        if (firstCardValue === secondCardValue) {
+          shuffledIcons[firstCardId].status = 'deleted';
+          shuffledIcons[secondCardId].status = 'deleted';
+          const newRemainingCards = remainingCards - 2;
+
+          this.setState({ remainingCards: newRemainingCards });
+        } else {
+          shuffledIcons[firstCardId].status = 'closed';
+          shuffledIcons[secondCardId].status = 'closed';
+        }
+
+        this.setState({ shuffledIcons, comparisonIcons: [] });
+      }, 1000);
+    }
+  }
+
   handleCardClick = (cardId) => {
     const { shuffledIcons, comparisonIcons } = this.state;
 
