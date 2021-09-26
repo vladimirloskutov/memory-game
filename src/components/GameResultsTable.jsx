@@ -1,6 +1,17 @@
 import React from "react";
 
 export default class GameResultsTable extends React.Component {
+  renderTableRows(items) {
+    return items.map((item, index) => {
+      return (
+          <tr key={index}>
+            <td>{index}</td>
+            <td>{item} s</td>
+          </tr>
+      );
+    });
+  }
+
   render() {
     const { gameResults } = this.props;
 
@@ -13,14 +24,7 @@ export default class GameResultsTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>72 s</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>109 s</td>
-            </tr>
+            {this.renderTableRows(gameResults)}
           </tbody>
         </table>
     );
