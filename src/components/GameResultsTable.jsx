@@ -2,6 +2,8 @@ import React from "react";
 
 export default class GameResultsTable extends React.Component {
   render() {
+    const { gameResults } = this.props;
+
     return (
         <table className="table">
           <thead>
