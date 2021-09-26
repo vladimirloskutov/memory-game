@@ -25,6 +25,7 @@ export default class App extends React.Component {
     this.state = {
       gameStatus: null,
       gameTimer: 0,
+      gameResults: [],
       shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
       remainingCards: shuffledIcons.icons.length,
       comparisonIcons: [],
