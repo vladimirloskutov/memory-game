@@ -32,28 +32,13 @@ export default class App extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const { remainingCards } = this.state;
-
-    if (remainingCards === 0) {
-      const shuffledIcons = JSON.parse(JSON.stringify(App.defaultProps));
-      this.setState({
-        shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
-        remainingCards: shuffledIcons.icons.length,
-        comparisonIcons: [],
-      });
-    }
-  }
-
   handleStartButtonClick = () => {
-    const { gameStatus, gameTimer } = this.state;
-    let newGameStatus;
+    const { gameStatus } = this.state;
 
     switch (gameStatus) {
       case null:
-        newGameStatus = 'started';
         this.gameStartTimerID = setInterval(() => {
-          this.setState({ gameStatus: newGameStatus, gameTimer: this.state.gameTimer + 1 });
+          this.setState({ gameStatus: 'started', gameTimer: this.state.gameTimer + 1 });
         }, 1000);
         break;
       case 'started':
@@ -64,7 +49,7 @@ export default class App extends React.Component {
   };
 
   handleCardClick = (cardId) => {
-    const { shuffledIcons, remainingCards, comparisonIcons } = this.state;
+    const { shuffledIcons, remainingCards, comparisonIcons, gameResults, gameTimer } = this.state;
 
     comparisonIcons.push(cardId);
     if (comparisonIcons.length < 3) {
@@ -76,7 +61,7 @@ export default class App extends React.Component {
         const [cardId] = comparisonIcons;
         shuffledIcons[cardId].status = 'closed';
         this.setState({ shuffledIcons, comparisonIcons: [] });
-      }, 2000);
+      }, 1000);
     }
 
     if (comparisonIcons.length === 2) {
@@ -91,6 +76,23 @@ export default class App extends React.Component {
           shuffledIcons[firstCardId].status = 'deleted';
           shuffledIcons[secondCardId].status = 'deleted';
           const newRemainingCards = remainingCards - 2;
+
+          if (newRemainingCards === 0) {
+            clearInterval(this.gameStartTimerID);
+
+            const shuffledIcons = JSON.parse(JSON.stringify(App.defaultProps));
+            gameResults.push(gameTimer);
+
+            this.setState({
+              gameStatus: null,
+              gameTimer: 0,
+              gameResults: gameResults,
+              shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
+              remainingCards: shuffledIcons.icons.length,
+              comparisonIcons: [],
+            });
+            return;
+          }
 
           this.setState({ shuffledIcons, comparisonIcons: [], remainingCards: newRemainingCards });
         } else {
@@ -107,6 +109,7 @@ export default class App extends React.Component {
 
   render() {
     const { gameTimer, shuffledIcons } = this.state;
+
     return (
         <div className="app w-75 mx-auto" >
           <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
