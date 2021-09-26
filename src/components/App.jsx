@@ -35,7 +35,6 @@ export default class App extends React.Component {
     const { remainingCards } = this.state;
 
     if (remainingCards === 0) {
-      alert('Game Over!');
       const shuffledIcons = JSON.parse(JSON.stringify(App.defaultProps));
       this.setState({
         shuffledIcons: shuffledIcons.icons.sort(() => Math.random() - 0.5),
@@ -57,9 +56,7 @@ export default class App extends React.Component {
         }, 1000);
         break;
       case 'started':
-        newGameStatus = 'finished';
-        this.setState({ gameStatus: newGameStatus });
-        break;
+        return;
       default:
         throw new Error(`Unknown game status: ${gameStatus}`);
     }
