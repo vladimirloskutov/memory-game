@@ -111,7 +111,7 @@ export default class App extends React.Component {
     const { gameTimer, shuffledIcons } = this.state;
 
     return (
-        <div className="app w-75 mx-auto" >
+        <div className="mt-5 ml-5">
           <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
           <CardsBoard shuffledIcons={shuffledIcons} cardClickHandler={this.handleCardClick} />
         </div>
