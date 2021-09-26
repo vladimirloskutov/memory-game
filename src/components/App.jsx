@@ -11,10 +11,28 @@ export default class App extends React.Component {
     };
   }
 
+  handleStartButtonClick = () => {
+    const { gameStatus } = this.state;
+    let newGameStatus;
+
+    switch (gameStatus) {
+      case null:
+        newGameStatus = 'started';
+        break;
+      case 'started':
+        newGameStatus = 'finished';
+        break;
+      default:
+        throw new Error(`Unknown game status: ${gameStatus}`);
+    }
+
+    this.setState({ gameStatus: newGameStatus });
+  };
+
   render() {
     return (
         <div className="app w-75 mx-auto" >
-          <ControlPanel />
+          <ControlPanel startButtonClickHandler={this.handleStartButtonClick} />
           <CardsBoard />
         </div>
     );
