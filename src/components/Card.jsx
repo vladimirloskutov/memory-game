@@ -15,7 +15,9 @@ export default class Card extends React.Component {
         card = (
             <div className="col-2 mb-4">
               <div className="card bg-warning">
-                <div id={id} className="card-body" onClick={this.handleCardClick}>{value}</div>
+                <div id={id} className="card-body" onClick={this.handleCardClick}>
+                  <span className="invisible">{value}</span>
+                </div>
               </div>
             </div>
         );
@@ -24,16 +26,16 @@ export default class Card extends React.Component {
         card = (
             <div className="col-2 mb-4">
               <div className="card">
-                <div id={id} className="card-body" onClick={this.handleClick}>{value}</div>
+                <div className="card-body text-center font-weight-bold">{value}</div>
               </div>
             </div>
         );
         break;
       case 'deleted':
         card = (
-            <div className="col-2 mb-4">
-              <div className="card bg-white">
-                <div id={id} className="card-body" onClick={this.handleClick}></div>
+            <div className="col-2">
+              <div>
+                <div className="card-body"></div>
               </div>
             </div>
         );

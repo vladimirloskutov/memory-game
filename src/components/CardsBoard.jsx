@@ -15,7 +15,7 @@ export default class CardsBoard extends React.Component {
     const { shuffledIcons } = this.props;
 
     return (
-      <div className="row col-6 mb-5">
+      <div className="row mb-5">
         {this.renderCardsBoard(shuffledIcons)}
       </div>
     );
