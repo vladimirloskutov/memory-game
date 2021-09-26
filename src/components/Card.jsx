@@ -15,7 +15,7 @@ export default class Card extends React.Component {
         card = (
             <div className="col-2 mb-4">
               <div className="card bg-warning">
-                <div id={id} className="card-body" onClick={this.handleCardClick}></div>
+                <div id={id} className="card-body" onClick={this.handleCardClick}>{value}</div>
               </div>
             </div>
         );

@@ -5,7 +5,7 @@ export default class GameResultsTable extends React.Component {
     return items.map((item, index) => {
       return (
           <tr key={index}>
-            <td>{index}</td>
+            <td>{index + 1}</td>
             <td>{item} s</td>
           </tr>
       );
@@ -16,17 +16,17 @@ export default class GameResultsTable extends React.Component {
     const { gameResults } = this.props;
 
     return (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Round time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderTableRows(gameResults)}
-          </tbody>
-        </table>
+      <table className="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Round time</th>
+        </tr>
+        </thead>
+        <tbody>
+        {this.renderTableRows(gameResults)}
+        </tbody>
+      </table>
     );
   }
 }

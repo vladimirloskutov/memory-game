@@ -112,10 +112,14 @@ export default class App extends React.Component {
     const { gameTimer, gameResults, shuffledIcons } = this.state;
 
     return (
-        <div className="mt-5 ml-5">
-          <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
-          <CardsBoard shuffledIcons={shuffledIcons} cardClickHandler={this.handleCardClick} />
-          <GameResultsTable gameResults={gameResults} />
+        <div className="row mt-5 ml-5">
+          <div className="col-2">
+            <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
+            <GameResultsTable gameResults={gameResults} />
+          </div>
+          <div className="col-10">
+            <CardsBoard shuffledIcons={shuffledIcons} cardClickHandler={this.handleCardClick} />
+          </div>
         </div>
     );
   }
