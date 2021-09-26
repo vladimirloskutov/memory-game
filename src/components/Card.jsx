@@ -33,11 +33,7 @@ export default class Card extends React.Component {
         break;
       case 'deleted':
         card = (
-            <div className="col-2">
-              <div>
-                <div className="card-body"></div>
-              </div>
-            </div>
+            <div className="col-2" />
         );
         break;
       default:
