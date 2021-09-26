@@ -11,6 +11,14 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.gameStatus === 'started') {
+      this.timerID = setTimeout(() => {
+        this.setState({ gameTimer: prevState.gameTimer + 1 });
+      }, 1000);
+    }
+  }
+
   handleStartButtonClick = () => {
     const { gameStatus } = this.state;
     let newGameStatus;
@@ -30,9 +38,10 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { gameTimer } = this.state;
     return (
         <div className="app w-75 mx-auto" >
-          <ControlPanel startButtonClickHandler={this.handleStartButtonClick} />
+          <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
           <CardsBoard />
         </div>
     );

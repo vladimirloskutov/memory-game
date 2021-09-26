@@ -9,6 +9,7 @@ export default class ControlPanel extends React.Component {
   };
 
   render() {
+    const { gameTimer } = this.props;
     return (
       <div className="control-panel mt-3 mb-5 mx-auto">
         <div className="row">
@@ -16,7 +17,7 @@ export default class ControlPanel extends React.Component {
             <StartButton startButtonClickHandler={this.handleStartButtonClick} />
           </div>
           <div className="col-4">
-            <Timer />
+            <Timer gameTimer={gameTimer} />
           </div>
         </div>
       </div>
