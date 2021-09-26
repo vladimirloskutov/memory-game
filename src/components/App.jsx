@@ -1,6 +1,7 @@
 import React from "react";
 import ControlPanel from "./ControlPanel";
 import CardsBoard from "./CardsBoard";
+import GameResultsTable from "./GameResultsTable";
 
 export default class App extends React.Component {
   static defaultProps = {
@@ -114,6 +115,7 @@ export default class App extends React.Component {
         <div className="mt-5 ml-5">
           <ControlPanel gameTimer={gameTimer} startButtonClickHandler={this.handleStartButtonClick} />
           <CardsBoard shuffledIcons={shuffledIcons} cardClickHandler={this.handleCardClick} />
+          <GameResultsTable />
         </div>
     );
   }
