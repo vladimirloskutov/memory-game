@@ -32,13 +32,7 @@ export default class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { gameStatus, shuffledIcons, remainingCards, comparisonIcons } = this.state;
-
-    if (gameStatus === 'started') {
-      this.gameStartTimerID = setTimeout(() => {
-        this.setState({ gameTimer: prevState.gameTimer + 1 });
-      }, 1000);
-    }
+    const { remainingCards } = this.state;
 
     if (remainingCards === 0) {
       alert('Game Over!');
@@ -48,6 +42,35 @@ export default class App extends React.Component {
         remainingCards: shuffledIcons.icons.length,
         comparisonIcons: [],
       });
+    }
+  }
+
+  handleStartButtonClick = () => {
+    const { gameStatus, gameTimer } = this.state;
+    let newGameStatus;
+
+    switch (gameStatus) {
+      case null:
+        newGameStatus = 'started';
+        this.gameStartTimerID = setInterval(() => {
+          this.setState({ gameStatus: newGameStatus, gameTimer: this.state.gameTimer + 1 });
+        }, 1000);
+        break;
+      case 'started':
+        newGameStatus = 'finished';
+        this.setState({ gameStatus: newGameStatus });
+        break;
+      default:
+        throw new Error(`Unknown game status: ${gameStatus}`);
+    }
+  };
+
+  handleCardClick = (cardId) => {
+    const { shuffledIcons, remainingCards, comparisonIcons } = this.state;
+
+    comparisonIcons.push(cardId);
+    if (comparisonIcons.length < 3) {
+      shuffledIcons[cardId].status = 'opened';
     }
 
     if (comparisonIcons.length === 1) {
@@ -80,35 +103,6 @@ export default class App extends React.Component {
         }
       }, 1000);
     }
-  }
-
-  handleStartButtonClick = () => {
-    const { gameStatus } = this.state;
-    let newGameStatus;
-
-    switch (gameStatus) {
-      case null:
-        newGameStatus = 'started';
-        break;
-      case 'started':
-        newGameStatus = 'finished';
-        break;
-      default:
-        throw new Error(`Unknown game status: ${gameStatus}`);
-    }
-
-    this.setState({ gameStatus: newGameStatus });
-  };
-
-  handleCardClick = (cardId) => {
-    const { shuffledIcons, comparisonIcons } = this.state;
-
-    if (comparisonIcons.length > 1) {
-      return;
-    }
-
-    shuffledIcons[cardId].status = 'opened';
-    comparisonIcons.push(cardId);
 
     this.setState({ shuffledIcons, comparisonIcons });
   };
