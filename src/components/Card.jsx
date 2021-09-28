@@ -1,13 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default class Card extends React.Component {
+const mapStateToProps = (state) => {
+  const { shuffledIcons, remainingCards, comparisonIcons } = state;
+  return { shuffledIcons, remainingCards, comparisonIcons };
+};
+
+class Card extends React.Component {
   handleCardClick = (e) => {
-    this.props.cardClickHandler(e.target.id);
+    const cardId = e.target.id;
+    const { dispatch, shuffledIcons, comparisonIcons, } = this.props;
+
+    comparisonIcons.push(cardId);
+    if (comparisonIcons.length < 3) {
+        // shuffledIcons[cardId].status = 'opened';
+        dispatch({ type: 'opened', payload: { cardId } });
+    }
   };
 
   render() {
-    const { id, data } = this.props;
-    const { value, status } = data;
+    const { id, shuffledIcons } = this.props;
+    const { status, value } = shuffledIcons[id];
     let card;
 
     switch (status) {
@@ -43,3 +56,5 @@ export default class Card extends React.Component {
     return card;
   }
 }
+
+export default connect(mapStateToProps)(Card);

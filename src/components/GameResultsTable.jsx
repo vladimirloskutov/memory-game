@@ -1,15 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default class GameResultsTable extends React.Component {
+const mapStateToProps = (state) => {
+  const { gameResults } = state;
+  return { gameResults };
+};
+
+class GameResultsTable extends React.Component {
   renderTableRows(items) {
-    return items.map((item, index) => {
-      return (
+    return items.map((item, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{item} s</td>
           </tr>
-      );
-    });
+    ));
   }
 
   render() {
@@ -30,3 +34,5 @@ export default class GameResultsTable extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(GameResultsTable);
