@@ -10,13 +10,13 @@ class StartButton extends React.Component {
   handleStartButtonClick = () => {
     const { dispatch, gameStatus } = this.props;
     switch (gameStatus) {
-      case null:
-        this.startGameTimerID = setInterval(() => {
-          dispatch({ type: 'started' });
+      case 'initial':
+        this.gameTimerId = setInterval(() => {
+          dispatch({ type: 'started', payload: { gameTimerId: this.gameTimerId } });
         }, 1000);
         break;
       case 'started':
-        return;
+        break;
       default:
         throw new Error(`Unknown game status: ${gameStatus}`);
     }

@@ -2,19 +2,48 @@ import React from "react";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  const { shuffledIcons, remainingCards, comparisonIcons } = state;
-  return { shuffledIcons, remainingCards, comparisonIcons };
+  const { gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = state;
+  return { gameTimerId, shuffledIcons, remainingCards, comparisonIcons };
 };
 
 class Card extends React.Component {
   handleCardClick = (e) => {
     const cardId = e.target.id;
-    const { dispatch, shuffledIcons, comparisonIcons, } = this.props;
+    const { dispatch, gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = this.props;
 
-    comparisonIcons.push(cardId);
-    if (comparisonIcons.length < 3) {
-        // shuffledIcons[cardId].status = 'opened';
-        dispatch({ type: 'opened', payload: { cardId } });
+    if (comparisonIcons.length < 2) {
+      comparisonIcons.push(cardId);
+      dispatch({ type: 'opened', payload: { cardId } });
+    }
+
+    if (comparisonIcons.length === 1) {
+      Card.closeCardTimerId = setTimeout(() => {
+        dispatch({ type: 'closed', payload: { comparisonIcons } });
+      }, 5000);
+    }
+
+    if (comparisonIcons.length === 2) {
+      clearTimeout(Card.closeCardTimerId);
+
+      const [firstCardId, secondCardId] = comparisonIcons;
+      const firstCardValue = shuffledIcons[firstCardId].value;
+      const secondCardValue = shuffledIcons[secondCardId].value;
+
+      Card.comparisonCardTimerId = setTimeout(() => {
+        if (firstCardValue === secondCardValue) {
+          const newRemainingCards = remainingCards - 2;
+
+          dispatch({ type: 'deleted', payload: { comparisonIcons, newRemainingCards } });
+
+          if (newRemainingCards === 0) {
+            clearInterval(gameTimerId);
+            dispatch({ type: 'finished' });
+          }
+
+        } else {
+          dispatch({ type: 'closed', payload: { comparisonIcons } });
+        }
+      }, 1000);
     }
   };
 
