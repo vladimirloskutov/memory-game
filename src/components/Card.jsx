@@ -42,7 +42,7 @@ const Card = (props) => {
       if (comparisonIcons.length === 1) {
         dispatch(closeCard(comparisonIcons));
       }
-    }, 1000);
+    }, 5000);
 
     if (comparisonIcons.length === 2) {
       clearTimeout(closeCardTimerId);
@@ -64,7 +64,7 @@ const Card = (props) => {
         } else {
           dispatch(closeCard(comparisonIcons));
         }
-      }, 1000);
+      }, 2000);
     }
   };
 
