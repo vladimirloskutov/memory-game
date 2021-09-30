@@ -59,7 +59,7 @@ const Card = (props) => {
           <div className="col-2 mb-4">
             <div className="card bg-warning">
               <div id={cardId} className="card-body" onClick={handleCardClick}>
-                <span className="">{value}</span>
+                <span className="invisible">{value}</span>
               </div>
             </div>
           </div>
