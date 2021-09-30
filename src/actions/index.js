@@ -1,11 +1,11 @@
-const openCard = cardId => ({
+const openCard = (cardId) => ({
   type: 'CARD_OPENED',
   payload: {
     cardId,
   },
 });
 
-const closeCard = comparisonIcons => ({
+const closeCard = (comparisonIcons) => ({
   type: 'CARD_CLOSED',
   payload: {
     comparisonIcons,

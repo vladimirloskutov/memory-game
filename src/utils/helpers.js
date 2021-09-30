@@ -1,4 +1,4 @@
-import ICONS from "./icons";
+import ICONS from './icons';
 
 const getShuffledIcons = () => {
   const newIcons = JSON.parse(JSON.stringify(ICONS));

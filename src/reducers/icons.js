@@ -1,4 +1,4 @@
-import getShuffledIcons from "../utils/helpers";
+import getShuffledIcons from '../utils/helpers';
 
 const initialShuffledIcons = getShuffledIcons();
 const initialState = {
@@ -11,16 +11,18 @@ const icons = (state = initialState, action) => {
   const shuffledIcons = [...state.shuffledIcons];
 
   switch (action.type) {
-    case 'CARD_OPENED':
-      const cardId = action.payload.cardId;
+    case 'CARD_OPENED': {
+      const { cardId } = action.payload;
       shuffledIcons[cardId].status = 'CARD_OPENED';
 
       return {
         ...state,
         shuffledIcons,
       };
-    case 'CARD_CLOSED':
-      action.payload.comparisonIcons.forEach((cardId) => {
+    }
+    case 'CARD_CLOSED': {
+      const { comparisonIcons } = action.payload;
+      comparisonIcons.forEach((cardId) => {
         shuffledIcons[cardId].status = 'CARD_CLOSED';
       });
 
@@ -29,18 +31,21 @@ const icons = (state = initialState, action) => {
         shuffledIcons,
         comparisonIcons: [],
       };
-    case 'CARD_DELETED':
-      action.payload.comparisonIcons.forEach((cardId) => {
+    }
+    case 'CARD_DELETED': {
+      const { comparisonIcons, newRemainingCards } = action.payload;
+      comparisonIcons.forEach((cardId) => {
         shuffledIcons[cardId].status = 'CARD_DELETED';
       });
 
       return {
         ...state,
         shuffledIcons,
-        remainingCards: action.payload.newRemainingCards,
+        remainingCards: newRemainingCards,
         comparisonIcons: [],
       };
-    case 'GAME_FINISHED':
+    }
+    case 'GAME_FINISHED': {
       const newShuffledIcons = getShuffledIcons();
 
       return {
@@ -48,8 +53,10 @@ const icons = (state = initialState, action) => {
         remainingCards: newShuffledIcons.length,
         comparisonIcons: [],
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 };
 

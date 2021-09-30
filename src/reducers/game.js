@@ -7,14 +7,15 @@ const initialState = {
 
 const game = (state = initialState, action) => {
   switch (action.type) {
-    case 'GAME_STARTED':
+    case 'GAME_STARTED': {
       return {
         ...state,
         gameStatus: 'GAME_STARTED',
         gameTimer: state.gameTimer + 1,
         gameTimerId: action.payload.gameTimerId,
       };
-    case 'GAME_FINISHED':
+    }
+    case 'GAME_FINISHED': {
       const gameResults = [...state.gameResults];
       gameResults.push(state.gameTimer);
 
@@ -24,8 +25,10 @@ const game = (state = initialState, action) => {
         gameTimerId: null,
         gameResults,
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 };
 
