@@ -1,15 +1,34 @@
-import React from "react";
-import { connect } from "react-redux";
-import {closeCard, deleteCard, finishGame, openCard} from "../actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import {
+  closeCard, deleteCard, finishGame, openCard,
+} from '../actions';
 
 const mapStateToProps = ({ game, icons }) => {
   const { gameTimerId } = game;
-  const { shuffledIcons, remainingCards, comparisonIcons } = icons;
-  return { gameTimerId, shuffledIcons, remainingCards, comparisonIcons };
+  const {
+    shuffledIcons,
+    remainingCards,
+    comparisonIcons,
+  } = icons;
+
+  return {
+    gameTimerId,
+    shuffledIcons,
+    remainingCards,
+    comparisonIcons,
+  };
 };
 
 const Card = (props) => {
-  const { dispatch, cardId, gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = props;
+  const {
+    dispatch,
+    cardId,
+    gameTimerId,
+    shuffledIcons,
+    remainingCards,
+    comparisonIcons,
+  } = props;
 
   const handleCardClick = (e) => {
     const currentCardId = e.target.id;
@@ -42,7 +61,6 @@ const Card = (props) => {
             clearInterval(gameTimerId);
             dispatch(finishGame());
           }
-
         } else {
           dispatch(closeCard(comparisonIcons));
         }
@@ -56,27 +74,27 @@ const Card = (props) => {
   switch (status) {
     case 'CARD_CLOSED':
       card = (
-          <div className="col-2 mb-4">
-            <div className="card bg-warning">
-              <div id={cardId} className="card-body" onClick={handleCardClick}>
-                <span className="invisible">{value}</span>
-              </div>
+        <div className="col-2 mb-4">
+          <div className="card bg-warning">
+            <div id={cardId} className="card-body" onClick={handleCardClick}>
+              <span className="invisible">{value}</span>
             </div>
           </div>
+        </div>
       );
       break;
     case 'CARD_OPENED':
       card = (
-          <div className="col-2 mb-4">
-            <div className="card">
-              <div className="card-body text-center font-weight-bold">{value}</div>
-            </div>
+        <div className="col-2 mb-4">
+          <div className="card">
+            <div className="card-body text-center font-weight-bold">{value}</div>
           </div>
+        </div>
       );
       break;
     case 'CARD_DELETED':
       card = (
-          <div className="col-2" />
+        <div className="col-2" />
       );
       break;
     default:
