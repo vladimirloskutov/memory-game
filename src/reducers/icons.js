@@ -11,17 +11,17 @@ const icons = (state = initialState, action) => {
   const shuffledIcons = [...state.shuffledIcons];
 
   switch (action.type) {
-    case 'opened':
+    case 'CARD_OPENED':
       const cardId = action.payload.cardId;
-      shuffledIcons[cardId].status = 'opened';
+      shuffledIcons[cardId].status = 'CARD_OPENED';
 
       return {
         ...state,
         shuffledIcons,
       };
-    case 'closed':
+    case 'CARD_CLOSED':
       action.payload.comparisonIcons.forEach((cardId) => {
-        shuffledIcons[cardId].status = 'closed';
+        shuffledIcons[cardId].status = 'CARD_CLOSED';
       });
 
       return {
@@ -29,9 +29,9 @@ const icons = (state = initialState, action) => {
         shuffledIcons,
         comparisonIcons: [],
       };
-    case 'deleted':
+    case 'CARD_DELETED':
       action.payload.comparisonIcons.forEach((cardId) => {
-        shuffledIcons[cardId].status = 'deleted';
+        shuffledIcons[cardId].status = 'CARD_DELETED';
       });
 
       return {
@@ -40,7 +40,7 @@ const icons = (state = initialState, action) => {
         remainingCards: action.payload.newRemainingCards,
         comparisonIcons: [],
       };
-    case 'finished':
+    case 'GAME_FINISHED':
       const newShuffledIcons = getShuffledIcons();
 
       return {

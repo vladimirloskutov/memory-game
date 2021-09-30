@@ -14,12 +14,12 @@ class Card extends React.Component {
 
     if (comparisonIcons.length < 2) {
       comparisonIcons.push(cardId);
-      dispatch({ type: 'opened', payload: { cardId } });
+      dispatch({ type: 'CARD_OPENED', payload: { cardId } });
     }
 
     if (comparisonIcons.length === 1) {
       Card.closeCardTimerId = setTimeout(() => {
-        dispatch({ type: 'closed', payload: { comparisonIcons } });
+        dispatch({ type: 'CARD_CLOSED', payload: { comparisonIcons } });
       }, 1000);
     }
 
@@ -34,15 +34,15 @@ class Card extends React.Component {
         if (firstCardValue === secondCardValue) {
           const newRemainingCards = remainingCards - 2;
 
-          dispatch({ type: 'deleted', payload: { comparisonIcons, newRemainingCards } });
+          dispatch({ type: 'CARD_DELETED', payload: { comparisonIcons, newRemainingCards } });
 
           if (newRemainingCards === 0) {
             clearInterval(gameTimerId);
-            dispatch({ type: 'finished' });
+            dispatch({ type: 'GAME_FINISHED' });
           }
 
         } else {
-          dispatch({ type: 'closed', payload: { comparisonIcons } });
+          dispatch({ type: 'CARD_CLOSED', payload: { comparisonIcons } });
         }
       }, 1000);
     }
@@ -54,7 +54,7 @@ class Card extends React.Component {
     let card;
 
     switch (status) {
-      case 'closed':
+      case 'CARD_CLOSED':
         card = (
             <div className="col-2 mb-4">
               <div className="card bg-warning">
@@ -65,7 +65,7 @@ class Card extends React.Component {
             </div>
         );
         break;
-      case 'opened':
+      case 'CARD_OPENED':
         card = (
             <div className="col-2 mb-4">
               <div className="card">
@@ -74,7 +74,7 @@ class Card extends React.Component {
             </div>
         );
         break;
-      case 'deleted':
+      case 'CARD_DELETED':
         card = (
             <div className="col-2" />
         );

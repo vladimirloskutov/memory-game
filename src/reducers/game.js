@@ -1,5 +1,5 @@
 const initialState = {
-  gameStatus: 'initial',
+  gameStatus: 'GAME_INITIAL',
   gameTimer: 0,
   gameTimerId: null,
   gameResults: [],
@@ -7,19 +7,19 @@ const initialState = {
 
 const game = (state = initialState, action) => {
   switch (action.type) {
-    case 'started':
+    case 'GAME_STARTED':
       return {
         ...state,
-        gameStatus: 'started',
+        gameStatus: 'GAME_STARTED',
         gameTimer: state.gameTimer + 1,
         gameTimerId: action.payload.gameTimerId,
       };
-    case 'finished':
+    case 'GAME_FINISHED':
       const gameResults = [...state.gameResults];
       gameResults.push(state.gameTimer);
 
       return {
-        gameStatus: 'initial',
+        gameStatus: 'GAME_INITIAL',
         gameTimer: 0,
         gameTimerId: null,
         gameResults,
