@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {closeCard, deleteCard, finishGame, openCard} from "../actions";
 
 const mapStateToProps = ({ game, icons }) => {
   const { gameTimerId } = game;
@@ -14,12 +15,12 @@ class Card extends React.Component {
 
     if (comparisonIcons.length < 2) {
       comparisonIcons.push(cardId);
-      dispatch({ type: 'CARD_OPENED', payload: { cardId } });
+      dispatch(openCard(cardId));
     }
 
     if (comparisonIcons.length === 1) {
       Card.closeCardTimerId = setTimeout(() => {
-        dispatch({ type: 'CARD_CLOSED', payload: { comparisonIcons } });
+        dispatch(closeCard(comparisonIcons));
       }, 1000);
     }
 
@@ -34,15 +35,15 @@ class Card extends React.Component {
         if (firstCardValue === secondCardValue) {
           const newRemainingCards = remainingCards - 2;
 
-          dispatch({ type: 'CARD_DELETED', payload: { comparisonIcons, newRemainingCards } });
+          dispatch(deleteCard(comparisonIcons, newRemainingCards));
 
           if (newRemainingCards === 0) {
             clearInterval(gameTimerId);
-            dispatch({ type: 'GAME_FINISHED' });
+            dispatch(finishGame());
           }
 
         } else {
-          dispatch({ type: 'CARD_CLOSED', payload: { comparisonIcons } });
+          dispatch(closeCard(comparisonIcons));
         }
       }, 1000);
     }

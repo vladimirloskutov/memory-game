@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {startGame} from "../actions";
 
 const mapStateToProps = ({ game }) => {
   const { gameStatus } = game;
@@ -12,7 +13,7 @@ class StartButton extends React.Component {
     switch (gameStatus) {
       case 'GAME_INITIAL':
         this.gameTimerId = setInterval(() => {
-          dispatch({ type: 'GAME_STARTED', payload: { gameTimerId: this.gameTimerId } });
+          dispatch(startGame(this.gameTimerId));
         }, 1000);
         break;
       case 'GAME_STARTED':
