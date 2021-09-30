@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  const { gameStatus } = state;
+const mapStateToProps = ({ game }) => {
+  const { gameStatus } = game;
   return { gameStatus };
 };
 

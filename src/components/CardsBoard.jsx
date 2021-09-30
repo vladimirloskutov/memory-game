@@ -2,8 +2,8 @@ import React from "react";
 import Card from "./Card";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  const { shuffledIcons } = state;
+const mapStateToProps = ({ icons }) => {
+  const { shuffledIcons } = icons;
   return { shuffledIcons };
 };
 

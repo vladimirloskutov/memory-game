@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  const { gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = state;
+const mapStateToProps = ({ game, icons }) => {
+  const { gameTimerId } = game;
+  const { shuffledIcons, remainingCards, comparisonIcons } = icons;
   return { gameTimerId, shuffledIcons, remainingCards, comparisonIcons };
 };
 
@@ -19,7 +20,7 @@ class Card extends React.Component {
     if (comparisonIcons.length === 1) {
       Card.closeCardTimerId = setTimeout(() => {
         dispatch({ type: 'closed', payload: { comparisonIcons } });
-      }, 5000);
+      }, 1000);
     }
 
     if (comparisonIcons.length === 2) {
@@ -58,7 +59,7 @@ class Card extends React.Component {
             <div className="col-2 mb-4">
               <div className="card bg-warning">
                 <div id={id} className="card-body" onClick={this.handleCardClick}>
-                  <span className="invisible">{value}</span>
+                  <span className="">{value}</span>
                 </div>
               </div>
             </div>

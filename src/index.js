@@ -5,17 +5,7 @@ import { Provider } from "react-redux";
 import App from "./components/App";
 import rootReducer from "./reducers";
 
-const initialState = {
-  gameStatus: 'initial',
-  gameTimer: 0,
-  gameTimerId: null,
-  gameResults: [],
-  shuffledIcons: shuffledIcons.sort(() => Math.random() - 0.5),
-  remainingCards: shuffledIcons.length,
-  comparisonIcons: [],
-};
-
-const store = createStore(rootReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>

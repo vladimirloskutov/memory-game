@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  const { gameTimer } = state;
+const mapStateToProps = ({ game }) => {
+  const { gameTimer } = game;
   return { gameTimer };
 };
 
