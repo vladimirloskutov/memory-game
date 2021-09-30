@@ -7,13 +7,13 @@ const mapStateToProps = ({ game }) => {
   return { gameStatus };
 };
 
-class StartButton extends React.Component {
-  handleStartButtonClick = () => {
-    const { dispatch, gameStatus } = this.props;
+const StartButton = (props) => {
+  const handleStartButtonClick = () => {
+    const { dispatch, gameStatus } = props;
     switch (gameStatus) {
       case 'GAME_INITIAL':
-        this.gameTimerId = setInterval(() => {
-          dispatch(startGame(this.gameTimerId));
+        const gameTimerId = setInterval(() => {
+          dispatch(startGame(gameTimerId));
         }, 1000);
         break;
       case 'GAME_STARTED':
@@ -23,17 +23,15 @@ class StartButton extends React.Component {
     }
   }
 
-  render() {
-    return (
+  return (
       <button
           type="button"
           className="btn btn-primary btn-lg"
-          onClick={this.handleStartButtonClick}
+          onClick={handleStartButtonClick}
       >
         START
       </button>
-    );
-  }
-}
+  );
+};
 
 export default connect(mapStateToProps)(StartButton);

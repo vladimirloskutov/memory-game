@@ -6,18 +6,16 @@ const mapStateToProps = ({ game }) => {
   return { gameTimer };
 };
 
-class Timer extends React.Component {
-  render() {
-    const { gameTimer } = this.props;
+const Timer = (props) => {
+  const { gameTimer } = props;
 
-    return (
-        <div
-            className="d-inline h2"
-        >
-          Time: {gameTimer} s
-        </div>
-    );
-  }
-}
+  return (
+      <div
+          className="d-inline h2"
+      >
+        Time: {gameTimer} s
+      </div>
+  );
+};
 
 export default connect(mapStateToProps)(Timer);

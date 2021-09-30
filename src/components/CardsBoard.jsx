@@ -7,22 +7,17 @@ const mapStateToProps = ({ icons }) => {
   return { shuffledIcons };
 };
 
-class CardsBoard extends React.Component {
-  renderCardsBoard(items) {
-    return items.map((item, index) => <Card key={index} id={index} />);
-  }
+const CardsBoard = (props) => {
+  const { shuffledIcons } = props;
+  const cardsBoard = shuffledIcons.map((icon, index) => <Card key={index} cardId={index} />);
 
-  render() {
-    const { shuffledIcons } = this.props;
-
-    return (
+  return (
       <div
           className="row mb-5"
       >
-        {this.renderCardsBoard(shuffledIcons)}
+        {cardsBoard}
       </div>
-    );
-  }
-}
+  );
+};
 
 export default connect(mapStateToProps)(CardsBoard);

@@ -6,20 +6,16 @@ const mapStateToProps = ({ game }) => {
   return { gameResults };
 };
 
-class GameResultsTable extends React.Component {
-  renderTableRows(items) {
-    return items.map((item, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{item} s</td>
-          </tr>
-    ));
-  }
+const GameResultsTable = (props) => {
+  const { gameResults } = props;
+  const tableRows = gameResults.map((result, index) => (
+      <tr key={index}>
+        <td>{index + 1}</td>
+        <td>{result} s</td>
+      </tr>
+  ));
 
-  render() {
-    const { gameResults } = this.props;
-
-    return (
+  return (
       <table className="table">
         <thead>
         <tr>
@@ -28,11 +24,10 @@ class GameResultsTable extends React.Component {
         </tr>
         </thead>
         <tbody>
-        {this.renderTableRows(gameResults)}
+        {tableRows}
         </tbody>
       </table>
-    );
-  }
-}
+  );
+};
 
 export default connect(mapStateToProps)(GameResultsTable);

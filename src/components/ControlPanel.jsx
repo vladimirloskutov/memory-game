@@ -2,9 +2,8 @@ import React from "react";
 import StartButton from "./StartButton";
 import Timer from "./Timer";
 
-export default class ControlPanel extends React.Component {
-  render() {
-    return (
+const ControlPanel = () => {
+  return (
       <div className="row col-12 mb-5">
         <div className="col-12 mr-5">
           <StartButton />
@@ -13,6 +12,7 @@ export default class ControlPanel extends React.Component {
           <Timer />
         </div>
       </div>
-    );
-  }
-}
+  );
+};
+
+export default ControlPanel;

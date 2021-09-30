@@ -8,30 +8,31 @@ const mapStateToProps = ({ game, icons }) => {
   return { gameTimerId, shuffledIcons, remainingCards, comparisonIcons };
 };
 
-class Card extends React.Component {
-  handleCardClick = (e) => {
-    const cardId = e.target.id;
-    const { dispatch, gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = this.props;
+const Card = (props) => {
+  const { dispatch, cardId, gameTimerId, shuffledIcons, remainingCards, comparisonIcons } = props;
+
+  const handleCardClick = (e) => {
+    const currentCardId = e.target.id;
 
     if (comparisonIcons.length < 2) {
-      comparisonIcons.push(cardId);
-      dispatch(openCard(cardId));
+      comparisonIcons.push(currentCardId);
+      dispatch(openCard(currentCardId));
     }
 
-    if (comparisonIcons.length === 1) {
-      Card.closeCardTimerId = setTimeout(() => {
+    const closeCardTimerId = setTimeout(() => {
+      if (comparisonIcons.length === 1) {
         dispatch(closeCard(comparisonIcons));
-      }, 1000);
-    }
+      }
+    }, 1000);
 
     if (comparisonIcons.length === 2) {
-      clearTimeout(Card.closeCardTimerId);
+      clearTimeout(closeCardTimerId);
 
       const [firstCardId, secondCardId] = comparisonIcons;
       const firstCardValue = shuffledIcons[firstCardId].value;
       const secondCardValue = shuffledIcons[secondCardId].value;
 
-      Card.comparisonCardTimerId = setTimeout(() => {
+      setTimeout(() => {
         if (firstCardValue === secondCardValue) {
           const newRemainingCards = remainingCards - 2;
 
@@ -49,43 +50,40 @@ class Card extends React.Component {
     }
   };
 
-  render() {
-    const { id, shuffledIcons } = this.props;
-    const { status, value } = shuffledIcons[id];
-    let card;
+  const { status, value } = shuffledIcons[cardId];
+  let card;
 
-    switch (status) {
-      case 'CARD_CLOSED':
-        card = (
-            <div className="col-2 mb-4">
-              <div className="card bg-warning">
-                <div id={id} className="card-body" onClick={this.handleCardClick}>
-                  <span className="">{value}</span>
-                </div>
+  switch (status) {
+    case 'CARD_CLOSED':
+      card = (
+          <div className="col-2 mb-4">
+            <div className="card bg-warning">
+              <div id={cardId} className="card-body" onClick={handleCardClick}>
+                <span className="">{value}</span>
               </div>
             </div>
-        );
-        break;
-      case 'CARD_OPENED':
-        card = (
-            <div className="col-2 mb-4">
-              <div className="card">
-                <div className="card-body text-center font-weight-bold">{value}</div>
-              </div>
+          </div>
+      );
+      break;
+    case 'CARD_OPENED':
+      card = (
+          <div className="col-2 mb-4">
+            <div className="card">
+              <div className="card-body text-center font-weight-bold">{value}</div>
             </div>
-        );
-        break;
-      case 'CARD_DELETED':
-        card = (
-            <div className="col-2" />
-        );
-        break;
-      default:
-        throw new Error(`Unknown card status: ${status}`);
-    }
-
-    return card;
+          </div>
+      );
+      break;
+    case 'CARD_DELETED':
+      card = (
+          <div className="col-2" />
+      );
+      break;
+    default:
+      throw new Error(`Unknown card status: ${status}`);
   }
-}
+
+  return card;
+};
 
 export default connect(mapStateToProps)(Card);
