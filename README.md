@@ -13,8 +13,7 @@
         - Результат раунда можно увидеть в таблице слева под таймером.
         - Повторное нажатие на кнопку "START" запустит новый раунд игры.
 
-## Пример игры:
-    [vladimirloskutov.github.io/memory-game/](https://vladimirloskutov.github.io/memory-game/)
+### Пример игры: [vladimirloskutov.github.io/memory-game/](https://vladimirloskutov.github.io/memory-game/)
 
 ## Установка, запуск и сборка проекта:
     * Клонировать проект: git clone https://github.com/vladimirloskutov/memory-game.git
