@@ -1,8 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  closeCard, deleteCard, finishGame, openCard,
+  closeCard,
+  deleteCard,
+  finishGame,
+  openCard,
 } from '../actions';
+import {
+  GAME_STARTED,
+  CARD_OPENED,
+  CARD_CLOSED,
+  CARD_DELETED,
+} from '../utils/constants';
 
 const mapStateToProps = ({ game, icons }) => {
   const {
@@ -39,7 +48,7 @@ const Card = (props) => {
   const handleCardClick = (e) => {
     const currentCardId = e.target.id;
 
-    if (gameStatus !== 'GAME_STARTED') {
+    if (gameStatus !== GAME_STARTED) {
       return;
     }
 
@@ -82,7 +91,7 @@ const Card = (props) => {
   let card;
 
   switch (status) {
-    case 'CARD_CLOSED':
+    case CARD_CLOSED:
       card = (
         <div className="col-2 mb-4">
           <div className="card bg-warning">
@@ -93,7 +102,7 @@ const Card = (props) => {
         </div>
       );
       break;
-    case 'CARD_OPENED':
+    case CARD_OPENED:
       card = (
         <div className="col-2 mb-4">
           <div className="card">
@@ -102,7 +111,7 @@ const Card = (props) => {
         </div>
       );
       break;
-    case 'CARD_DELETED':
+    case CARD_DELETED:
       card = (
         <div className="col-2" />
       );

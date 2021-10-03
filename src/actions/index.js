@@ -1,5 +1,12 @@
+import {
+  GAME_STARTED,
+  GAME_FINISHED,
+  CARD_OPENED,
+  CARD_DELETED,
+} from '../utils/constants';
+
 const openCard = (cardId) => ({
-  type: 'CARD_OPENED',
+  type: CARD_OPENED,
   payload: {
     cardId,
   },
@@ -13,7 +20,7 @@ const closeCard = (comparisonIcons) => ({
 });
 
 const deleteCard = (comparisonIcons, newRemainingIcons) => ({
-  type: 'CARD_DELETED',
+  type: CARD_DELETED,
   payload: {
     comparisonIcons,
     newRemainingIcons,
@@ -21,14 +28,14 @@ const deleteCard = (comparisonIcons, newRemainingIcons) => ({
 });
 
 const startGame = (gameTimerId) => ({
-  type: 'GAME_STARTED',
+  type: GAME_STARTED,
   payload: {
     gameTimerId,
   },
 });
 
 const finishGame = () => ({
-  type: 'GAME_FINISHED',
+  type: GAME_FINISHED,
 });
 
 export {
