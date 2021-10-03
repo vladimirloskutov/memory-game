@@ -12,11 +12,11 @@ const closeCard = (comparisonIcons) => ({
   },
 });
 
-const deleteCard = (comparisonIcons, newRemainingCards) => ({
+const deleteCard = (comparisonIcons, newRemainingIcons) => ({
   type: 'CARD_DELETED',
   payload: {
     comparisonIcons,
-    newRemainingCards,
+    newRemainingIcons,
   },
 });
 

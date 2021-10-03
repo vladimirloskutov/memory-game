@@ -12,7 +12,7 @@ const mapStateToProps = ({ game, icons }) => {
 
   const {
     shuffledIcons,
-    remainingCards,
+    remainingIcons,
     comparisonIcons,
   } = icons;
 
@@ -20,7 +20,7 @@ const mapStateToProps = ({ game, icons }) => {
     gameStatus,
     gameTimerId,
     shuffledIcons,
-    remainingCards,
+    remainingIcons,
     comparisonIcons,
   };
 };
@@ -32,7 +32,7 @@ const Card = (props) => {
     gameStatus,
     gameTimerId,
     shuffledIcons,
-    remainingCards,
+    remainingIcons,
     comparisonIcons,
   } = props;
 
@@ -40,7 +40,6 @@ const Card = (props) => {
     const currentCardId = e.target.id;
 
     if (gameStatus !== 'GAME_STARTED') {
-      alert('Press the START button');
       return;
     }
 
@@ -64,11 +63,11 @@ const Card = (props) => {
 
       setTimeout(() => {
         if (firstCardValue === secondCardValue) {
-          const newRemainingCards = remainingCards - 2;
+          const newRemainingIcons = remainingIcons - 2;
 
-          dispatch(deleteCard(comparisonIcons, newRemainingCards));
+          dispatch(deleteCard(comparisonIcons, newRemainingIcons));
 
-          if (newRemainingCards === 0) {
+          if (newRemainingIcons === 0) {
             clearInterval(gameTimerId);
             dispatch(finishGame());
           }

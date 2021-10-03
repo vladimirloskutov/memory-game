@@ -3,7 +3,7 @@ import getShuffledIcons from '../utils/helpers';
 const initialShuffledIcons = getShuffledIcons();
 const initialState = {
   shuffledIcons: initialShuffledIcons,
-  remainingCards: initialShuffledIcons.length,
+  remainingIcons: initialShuffledIcons.length,
   comparisonIcons: [],
 };
 
@@ -33,7 +33,7 @@ const icons = (state = initialState, action) => {
       };
     }
     case 'CARD_DELETED': {
-      const { comparisonIcons, newRemainingCards } = action.payload;
+      const { comparisonIcons, newRemainingIcons } = action.payload;
       comparisonIcons.forEach((cardId) => {
         shuffledIcons[cardId].status = 'CARD_DELETED';
       });
@@ -41,7 +41,7 @@ const icons = (state = initialState, action) => {
       return {
         ...state,
         shuffledIcons,
-        remainingCards: newRemainingCards,
+        remainingIcons: newRemainingIcons,
         comparisonIcons: [],
       };
     }
@@ -50,7 +50,7 @@ const icons = (state = initialState, action) => {
 
       return {
         shuffledIcons: newShuffledIcons,
-        remainingCards: newShuffledIcons.length,
+        remainingIcons: newShuffledIcons.length,
         comparisonIcons: [],
       };
     }
