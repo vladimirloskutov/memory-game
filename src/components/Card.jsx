@@ -5,7 +5,11 @@ import {
 } from '../actions';
 
 const mapStateToProps = ({ game, icons }) => {
-  const { gameTimerId } = game;
+  const {
+    gameStatus,
+    gameTimerId,
+  } = game;
+
   const {
     shuffledIcons,
     remainingCards,
@@ -13,6 +17,7 @@ const mapStateToProps = ({ game, icons }) => {
   } = icons;
 
   return {
+    gameStatus,
     gameTimerId,
     shuffledIcons,
     remainingCards,
@@ -24,6 +29,7 @@ const Card = (props) => {
   const {
     dispatch,
     cardId,
+    gameStatus,
     gameTimerId,
     shuffledIcons,
     remainingCards,
@@ -32,6 +38,11 @@ const Card = (props) => {
 
   const handleCardClick = (e) => {
     const currentCardId = e.target.id;
+
+    if (gameStatus !== 'GAME_STARTED') {
+      alert('Press the START button');
+      return;
+    }
 
     if (comparisonIcons.length < 2) {
       comparisonIcons.push(currentCardId);
